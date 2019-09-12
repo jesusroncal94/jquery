@@ -1,3 +1,5 @@
+<?php include "departamentos.php"; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,57 +12,22 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous">
     </script>
+    <script type = "text/javascript" src = "js/datos.js">
+    </script>
 </head>
 <body>
     <label>DEPARTAMENTO: </label>
-    <select id = 'departamentos' name = 'departamentos'></select>
+    <select id = 'departamentos' name = 'departamentos'>
+        <?php echo $cadena ?></select>
     <br>
     <label>PROVINCIA: </label>
-    <select id = 'provincias' name = 'provincias'></select>
+    <select id = 'provincias' name = 'provincias'>
+        <option value = "">Seleccione un departamento</option>
+    </select>
     <br>
     <label>CIUDAD: </label>
-    <select id = 'distritos' name = 'distritos'></select>
+    <select id = 'distritos' name = 'distritos'>
+        <option value = "">Seleccione una provincia</option>
+    </select>
 </body>
 </html>
-
-<script type = "text/javascript">
-    $(document).ready(function(){
-        cargarDepartamentos();
-        $('#departamentos').on('change', function(){
-			var idDepartamento = $('#departamentos').val();
-            $.ajax({
-                type: "POST",
-                url: "provincias.php",
-                data: {departamento: idDepartamento},
-                success: function(r) {
-                    $('#provincias').html(r);
-                }
-            });
-		});
-        $('#provincias').on('change', function(){
-			var idDepartamento = $('#departamentos').val();
-            var idProvincia = $('#provincias').val();
-            $.ajax({
-                type: "POST",
-                url: "distritos.php",
-                data: {departamento: idDepartamento, provincia: idProvincia},
-                success: function(r) {
-                    $('#distritos').html(r);
-                }
-            });
-		});
-    })
-</script>
-
-<script type = "text/javascript">
-    function cargarDepartamentos() {
-        $.ajax({
-            type: "POST",
-            url: "departamentos.php",
-            data: "",
-            success: function(r) {
-                $('#departamentos').html(r);
-            }
-        });
-    }
-</script>
